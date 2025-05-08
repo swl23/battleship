@@ -18,6 +18,12 @@ class Gameboard {
     constructor() {}
 }
 
+class Player {
+    constructor() {
+        this.board = new Gameboard();
+    }
+}
+
 module.exports = {
     Ship,
     Gameboard,
