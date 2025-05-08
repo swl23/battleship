@@ -15,7 +15,15 @@ class Ship {
 }
 
 class Gameboard {
-    constructor() {}
+    constructor() {
+        this.board = [];
+        const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+        for (let i = 0; i < rows.length; i++) {
+            for (let j = 0; j < rows.length; j++) {
+                this.board.push([rows[i], j + 1]);
+            }
+        }
+    }
 }
 
 class Player {
