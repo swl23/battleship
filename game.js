@@ -1,6 +1,14 @@
 class Ship {
-    constructor(length) {
-        this.length = length;
+    constructor(name) {
+        this.name = name;
+        const lengths = {
+            carrier: 5,
+            battleship: 4,
+            destroyer: 3,
+            submarine: 3,
+            patrol: 2,
+        };
+        this.length = lengths[this.name];
         this.hits = 0;
         this.sunk = false;
     }
@@ -27,7 +35,8 @@ class Gameboard {
 }
 
 class Player {
-    constructor() {
+    constructor(name) {
+        this.name = name;
         this.board = new Gameboard();
     }
 }
