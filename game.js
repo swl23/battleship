@@ -35,4 +35,5 @@ class Player {
 module.exports = {
     Ship,
     Gameboard,
+    Player,
 };
