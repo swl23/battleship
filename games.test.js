@@ -1,13 +1,26 @@
 const module = require("./game.js");
 
-const Ship = module.Ship;
 const Gameboard = module.Gameboard;
-const Player = module.Player;
 
-test("gameboard can properly place a ship across appropriate number of coordinates", () => {
-    const player1 = new Player("Steven");
-    player1.board.place("carrier", ["B", 2], "horizontal");
-    expect(player1.board.report()).toBe({
-        carrier: [["B, 2"], ["B, 3"], ["B, 4"], ["B, 5"], ["B, 6"]],
-    });
+test("a ship updates its location property after being placed on board", () => {
+    const board = new Gameboard();
+    board.place("carrier", [0, 7], "horizontal");
+    expect(board.carrier.getLocation()).toEqual([
+        [0, 7],
+        [1, 7],
+        [2, 7],
+        [3, 7],
+        [4, 7],
+    ]);
+    board.place("patrol", [3, 1], "vertical");
+    expect(board.patrol.getLocation()).toEqual([
+        [3, 1],
+        [3, 0],
+    ]);
+    board.place("submarine", [7, 2], "horizontal");
+    expect(board.submarine.getLocation()).toEqual([
+        [7, 2],
+        [8, 2],
+        [9, 2],
+    ]);
 });
