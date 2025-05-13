@@ -1,4 +1,4 @@
-const module = require("./game.js");
+const module = require("./src/game.js");
 
 const Gameboard = module.Gameboard;
 
