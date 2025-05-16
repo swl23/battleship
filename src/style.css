@@ -1,9 +1,54 @@
 body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::backdrop {
+    backdrop-filter: blur(10px);
+}
+
+#ui-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 250px 1fr 250px;
+    height: 100vh;
+}
+
+.banner,
+.boards,
+.scoreboard {
+    border: 1px solid black;
+}
+
+.banner {
+    grid-row: 1 /2;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#create-player {
-    display: block;
+.boards {
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.scoreboard {
+    grid-row: 3 / 4;
+}
+
+.grid > div {
+    aspect-ratio: 1/1;
+    min-height: 600px;
+}
+
+.grid > div .row {
+    display: flex;
+}
+
+.grid > div .row > .column {
+    aspect-ratio: 1/1;
+    border: solid 1px black;
+    width: 100%;
 }

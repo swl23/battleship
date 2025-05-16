@@ -20,8 +20,9 @@ class Ship {
 }
 
 class Gameboard {
-    constructor() {
+    constructor(size) {
         {
+            this.size = size;
             this.carrier = new Ship(5);
             this.battleship = new Ship(4);
             this.destroyer = new Ship(3);
@@ -98,7 +99,7 @@ class Gameboard {
         const y = headCell[1];
         const location = [];
         if (direction === "vertical") {
-            if (0 <= x <= 9 && y <= 9 && y - length + 1 >= 0) {
+            if (0 <= x < this.size && y < this.size && y - length + 1 >= 0) {
                 for (let i = 0; i < length; i++) {
                     location.push([x, y - i]);
                 }
@@ -106,7 +107,7 @@ class Gameboard {
                 return false;
             }
         } else if (direction === "horizontal") {
-            if (0 <= y <= 9 && x >= 0 && x + length - 1 <= 9) {
+            if (0 <= y < this.size && x >= 0 && x + length - 1 < this.size) {
                 for (let i = 0; i < length; i++) {
                     location.push([x + i, y]);
                 }
@@ -135,7 +136,7 @@ class Gameboard {
     }
 
     checkShipProximities(destinationCoordinates, shipLocations) {
-        // make sure there's a 1-cell border around destination coords
+        // fill sure there's a 1-cell border around destination coords
         const cellsAroundDestination = [];
         destinationCoordinates.forEach((cell) => {
             let x = cell[0];
@@ -199,9 +200,9 @@ class Gameboard {
 }
 
 class Player {
-    constructor(name) {
+    constructor(name, size) {
         this.name = name;
-        this.board = new Gameboard();
+        this.board = new Gameboard(size);
     }
 }
 
