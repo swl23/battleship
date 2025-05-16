@@ -47,8 +47,16 @@ body {
     display: flex;
 }
 
-.grid > div .row > .column {
+.grid > div .row > * {
     aspect-ratio: 1/1;
     border: solid 1px black;
     width: 100%;
+}
+
+.grid > div .row > .cell.sea {
+    background-color: aqua;
+}
+
+.ship {
+    background-color: black;
 }

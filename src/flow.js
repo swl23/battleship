@@ -1,10 +1,10 @@
 import "./style.css";
+import { createBoards, selectSquare } from "./dom.js";
 const module = require("./game.js");
 const Player = module.Player;
 
 const createPlayerDialog = document.getElementById("create-player");
 const playerForm = document.getElementById("player-form");
-const grids = document.querySelectorAll(".grid > *");
 const ui = document.getElementById("ui-container");
 
 // show player creation pop-up when page loads
@@ -24,30 +24,18 @@ playerForm.addEventListener("submit", (Event) => {
         2: new Player("computer", size),
     };
 
+    createBoards(document.getElementById("player"), size);
+    createBoards(document.getElementById("enemy"), size);
+
     // hard coded placeholder values
-    players[1].board.place("carrier", [0, 9], "vertical");
-    players[1].board.place("battleship", [2, 9], "vertical");
-    players[1].board.place("destroyer", [4, 9], "vertical");
-    players[1].board.place("submarine", [6, 9], "vertical");
-    players[1].board.place("patrol", [8, 9], "vertical");
+    players[1].board.place("carrier", [0, 7], "vertical");
+    players[1].board.place("battleship", [2, 7], "vertical");
+    players[1].board.place("destroyer", [4, 7], "vertical");
+    players[1].board.place("submarine", [6, 7], "vertical");
+    players[1].board.place("patrol", [0, 0], "horizontal");
     players[2].board.place("carrier", [1, 5], "vertical");
     players[2].board.place("battleship", [3, 5], "vertical");
     players[2].board.place("destroyer", [5, 5], "vertical");
     players[2].board.place("submarine", [7, 5], "vertical");
-    players[2].board.place("patrol", [5, 9], "vertical");
-
-    grids.forEach((grid) => {
-        for (let i = size - 1; i >= 0; i--) {
-            const x = document.createElement("div");
-            x.setAttribute("class", `row ${i}`);
-
-            for (let j = 0; j < size; j++) {
-                const y = document.createElement("div");
-                y.setAttribute("class", `column ${j}`);
-
-                x.appendChild(y);
-            }
-            grid.appendChild(x);
-        }
-    });
+    players[2].board.place("patrol", [5, 0], "horizontal");
 });
