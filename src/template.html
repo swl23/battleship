@@ -10,12 +10,13 @@
             <form action="" id="player-form">
                 <label for="name">Player 1:</label>
                 <input type="text" id="name" name="name" />
-                <label for="size">Board size:</label>
-                <select id="size" name="size">
-                    <option value="8">8</option>
-                    <option value="10">10</option>
-                </select>
-                <button type="submit">Submit</button>
+                <button type="submit" id="submit-player">Submit</button>
+            </form>
+        </dialog>
+        <dialog id="ship-place">
+            <form action="" id="ship-form">
+                <div class="grid" id="place"></div>
+                <button type="submit" id="submit-place">Start</button>
             </form>
         </dialog>
         <div id="ui-container">
@@ -23,14 +24,12 @@
                 <div id="title">Battleship</div>
             </div>
             <div class="boards">
-                <div class="grid">
-                    <div id="player"></div>
-                </div>
-                <div class="grid">
-                    <div id="enemy"></div>
-                </div>
+                <div class="grid" id="player"></div>
+                <div class="grid" id="enemy"></div>
             </div>
-            <div class="scoreboard"></div>
+            <div class="controls">
+                <button id="continue">Continue</button>
+            </div>
         </div>
     </body>
 </html>

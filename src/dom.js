@@ -1,25 +1,41 @@
-export { createBoards };
+import { checkIfCoordinatesAreInArray } from "./game";
 
-function createBoards(gridElement, size) {
-    for (let i = size - 1; i >= 0; i--) {
-        const x = document.createElement("div");
-        x.classList.add(i);
-        x.classList.add("row");
-        for (let j = 0; j < size; j++) {
-            const y = document.createElement("div");
-            y.classList.add(j);
-            y.classList.add("cell");
-            y.addEventListener("click", (Event) => {
-                getCoordinatesFromSquare(y, Event);
-            });
-            x.appendChild(y);
-        }
-        gridElement.appendChild(x);
+export { currentPlayer };
+
+class currentPlayer {
+    constructor(players) {
+        this.active = players[1];
+        this.inactive = players[2];
+    }
+
+    switch() {
+        let oldActive = this.active;
+        let oldInactive = this.inactive;
+        this.active = oldInactive;
+        this.inactive = oldActive;
+    }
+
+    getActive() {
+        return this.active;
+    }
+
+    getInactive() {
+        return this.inactive;
     }
 }
 
-function getCoordinatesFromSquare(square, Event) {
-    const x = square.classList[0];
-    const y = Event.target.parentNode.classList[0];
-    console.log([Number(x), Number(y)]);
+/*
+create player
+
+show grid and enable ship placement
+
+once ships are placed, if player2 is computer, provide player interface (otherwise show grid and enable ship placement for p2)
+set activePlayer to p1
+
+while no one has won {
+	playRound(actiuePlayer)
+		attack enemy grid
+		receive feedback on attack
+	switch activePlayer
 }
+*/

@@ -1,5 +1,6 @@
 class Ship {
-    constructor(length) {
+    constructor(length, name) {
+        this.name = name;
         this.length = length;
         this.hits = 0;
         this.location = null;
@@ -23,12 +24,15 @@ class Gameboard {
     constructor(size) {
         {
             this.size = size;
-            this.carrier = new Ship(5);
-            this.battleship = new Ship(4);
-            this.destroyer = new Ship(3);
-            this.submarine = new Ship(3);
-            this.patrol = new Ship(2);
-            this.attacksReceived = [];
+            this.carrier = new Ship(5, "carrier");
+            this.battleship = new Ship(4, "battleship");
+            this.destroyer = new Ship(3, "destroyer");
+            this.submarine = new Ship(3, "submarine");
+            this.patrol = new Ship(2, "patrol");
+            this.attacksReceived = {
+                hits: [],
+                misses: [],
+            };
         }
     }
 
@@ -71,6 +75,20 @@ class Gameboard {
                 }
             }
         }
+    }
+
+    getAttacksReceived() {
+        return this.attacksReceived;
+    }
+
+    allShipsPlaced() {
+        const ships = this.getShips();
+        for (let i = 0; i < ships.length; i++) {
+            if (ships[i].location === null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     getShips() {
@@ -170,21 +188,29 @@ class Gameboard {
 
     receiveAttack(coordinates) {
         if (
-            this.attacksReceived.length === 0 ||
-            !checkIfCoordinatesAreInArray(coordinates, this.attacksReceived)
+            checkIfCoordinatesAreInArray(
+                coordinates,
+                this.attacksReceived.hits
+            ) ||
+            checkIfCoordinatesAreInArray(
+                coordinates,
+                this.attacksReceived.misses
+            )
         ) {
+            throw new Error("Error: that cell has already been attacked.");
+        } else {
             const ships = this.getShips();
             for (let i = 0; i < ships.length; i++) {
                 if (
                     checkIfCoordinatesAreInArray(coordinates, ships[i].location)
                 ) {
                     ships[i].hit();
+                    this.attacksReceived.hits.push(coordinates);
+                    return ships[i];
                 }
             }
-            this.attacksReceived.push(coordinates);
-            return;
-        } else {
-            throw new Error("Error: that cell has already been attacked.");
+            this.attacksReceived.misses.push(coordinates);
+            return false;
         }
     }
 
@@ -200,7 +226,7 @@ class Gameboard {
 }
 
 class Player {
-    constructor(name, size) {
+    constructor(name, size = 9) {
         this.name = name;
         this.board = new Gameboard(size);
     }
@@ -210,6 +236,7 @@ module.exports = {
     Ship,
     Gameboard,
     Player,
+    checkIfCoordinatesAreInArray,
 };
 
 function checkIfCoordinatesAreInArray(coordinates, arrayOfCoordinates) {
